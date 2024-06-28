@@ -122,7 +122,7 @@ class APIs {
     .update ({'image': me.image});
   }
 
-  /*******Chat Screen realted APIs**********/
+  ///************** Chat Screen Related APIs **************
 
   //for getting conversation id
   static String getConversationID(String id) =>user.uid.hashCode <= id.hashCode
@@ -157,13 +157,27 @@ class APIs {
     await ref.doc(time).set(message.toJson());
   }
 
-  //update read status of message
-  static Future<void> updateMessageReadStatus(Message message) async {
-    firestore
-        .collection('chats/${getConversationID(message.fromId)}/messages/')
-        .doc(message.sent)
-        .update({'read': DateTime.now().millisecondsSinceEpoch.toString()});
-  }
+   //update read status of message
+   static Future<void> updateMessageReadStatus(Message message) async {
+     firestore
+         .collection('chats/${getConversationID(message.fromId)}/messages/')
+         .doc(message.sent)
+         .update({'read': DateTime.now().millisecondsSinceEpoch.toString()});
+   }
+
+//   // Update read status of message
+// static Future<void> updateMessageReadStatus(Message message) async {
+//   try {
+//     await firestore
+//         .collection('chats/${getConversationID(message.fromId)}/messages/')
+//         .doc(message.sent)
+//         .update({'read': DateTime.now().millisecondsSinceEpoch.toString()});
+//     log('Message read status updated successfully.');
+//   } catch (e, stackTrace) {
+//     log('Error updating message read status: $e', stackTrace: stackTrace);
+//   }
+// }
+
 
 
 }
